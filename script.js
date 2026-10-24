@@ -3,8 +3,8 @@ document.documentElement.classList.add("js");
 const CONFIG = {
   tokenAddress: "",
   pumpFunUrl: "",
-  twitter: "https://x.com/solyacatonx",
-  telegram: "https://t.me/solyacat_tg",
+  twitter: "https://x.com/search?q=%24MCAT",
+  telegram: "https://t.me",
 };
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -22,9 +22,9 @@ function initContract() {
   const address = CONFIG.tokenAddress;
 
   if (!address) {
-    display.textContent = "EvqFzEDwp727wQVYaJTt6BH6QPnaStcK4EvKM7HLpump";
+    display.textContent = "CePvX5yJSR3ZkSnU5SoeMuYS1exwBJR1YKyN5Ps8pump";
     copyBtn.disabled = true;
-    copyBtn.title = "Contract address coming soon";
+    copyBtn.title = "Contract address CePvX5yJSR3ZkSnU5SoeMuYS1exwBJR1YKyN5Ps8pump";
     return;
   }
 
@@ -108,17 +108,19 @@ function initPaws() {
   for (let i = 0; i < count; i++) {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-    use.setAttribute("href", "#paw");
+    use.setAttribute("href", "#stache");
     svg.appendChild(use);
 
-    const size = 18 + Math.random() * 34;
-    svg.style.width = `${size}px`;
+    const size = 16 + Math.random() * 22;
+    const tones = ["var(--gold)", "var(--cream)", "var(--sky)", "var(--ginger)"];
+    svg.style.width = `${size * 2.15}px`;
     svg.style.height = `${size}px`;
     svg.style.left = `${Math.random() * 100}%`;
+    svg.style.color = tones[i % tones.length];
     svg.style.animationDuration = `${14 + Math.random() * 16}s`;
     svg.style.animationDelay = `${-Math.random() * 30}s`;
-    svg.style.setProperty("--r", `${Math.random() * 60 - 30}deg`);
-    svg.style.setProperty("--o", (0.08 + Math.random() * 0.18).toFixed(2));
+    svg.style.setProperty("--r", `${Math.random() * 50 - 25}deg`);
+    svg.style.setProperty("--o", (0.16 + Math.random() * 0.22).toFixed(2));
 
     field.appendChild(svg);
   }
@@ -224,7 +226,7 @@ function initPawTrail() {
 
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-    use.setAttribute("href", "#paw");
+    use.setAttribute("href", "#stache");
     svg.appendChild(use);
     svg.classList.add("trail-paw");
     svg.style.left = `${e.clientX}px`;
@@ -247,6 +249,29 @@ function initProfileCycle() {
 
   mark();
   setInterval(mark, 1500);
+}
+
+function initConfetti() {
+  const field = document.querySelector(".confetti-field");
+  if (!field || reduceMotion) return;
+
+  const colors = ["#ffe14d", "#3ec8ea", "#ff5d86", "#7eb6ef", "#fff6d8", "#8eb6ff"];
+  const count = window.innerWidth < 720 ? 16 : 32;
+
+  for (let i = 0; i < count; i++) {
+    const bit = document.createElement("span");
+    const wide = 6 + Math.random() * 7;
+    bit.style.left = `${Math.random() * 100}%`;
+    bit.style.setProperty("--w", `${wide}px`);
+    bit.style.setProperty("--h", `${i % 4 === 0 ? wide : 12 + Math.random() * 12}px`);
+    bit.style.setProperty("--c", colors[i % colors.length]);
+    bit.style.setProperty("--spin", `${160 + Math.random() * 280}deg`);
+    bit.style.setProperty("--drift", `${-36 + Math.random() * 72}px`);
+    bit.style.animationDuration = `${9 + Math.random() * 11}s`;
+    bit.style.animationDelay = `${-Math.random() * 18}s`;
+    if (i % 4 === 0) bit.style.borderRadius = "50%";
+    field.appendChild(bit);
+  }
 }
 
 function initCoinTilt() {
@@ -273,6 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initNav();
   initSocialLinks();
   initPaws();
+  initConfetti();
   initSparkles();
   initPawTrail();
   initReveal();
