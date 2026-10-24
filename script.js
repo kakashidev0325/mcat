@@ -3,7 +3,7 @@ document.documentElement.classList.add("js");
 const CONFIG = {
   tokenAddress: "",
   pumpFunUrl: "",
-  twitter: "https://x.com/search?q=%24MCAT",
+  twitter: "https://x.com/moustacheonx",
   telegram: "https://t.me",
 };
 
